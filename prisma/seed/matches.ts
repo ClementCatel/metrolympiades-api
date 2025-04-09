@@ -1,4 +1,5 @@
 import { PrismaClient, Team } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 export const createMatches = async (prisma: PrismaClient, teams: Team[], activities: { id: string }[], numberOfMatchesPerTeam: number) => {
 
@@ -14,16 +15,16 @@ export const createMatches = async (prisma: PrismaClient, teams: Team[], activit
 
       const activity = activities[Math.floor(Math.random() * activities.length)];
 
-      const team1Score = Math.random() < 0.5 ? 3 : 0;
-      const team2Score = Math.random() < 0.5 ? 3 : 0;
+      const team1Score = faker.number.int(10);
+      const team2Score = faker.number.int(10);
 
       await prisma.match.create({
         data: {
           team1Id: team1.id,
           team2Id: team2.id,
           activityId: activity.id,
-          team1Score: (team1Score === team2Score) ? 1 : team1Score,
-          team2Score: (team1Score === team2Score) ? 1 : team2Score,
+          team1Score,
+          team2Score,
           startedAt: new Date(),
         }
       });
