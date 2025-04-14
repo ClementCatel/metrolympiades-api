@@ -131,6 +131,29 @@ Authorization: Bearer jwt_token
 }
 ```
 
+### 🔹 Lister les équipes
+
+**GET** `/teams`
+
+#### Réponse
+
+```json
+[
+	{
+		"id": "team_id",
+		"name": "Team Alpha",
+		"members": ["Alice", "Bob", "Charlie"],
+		"leaderId": "user_id"
+	},
+	{
+		"id": "team_id",
+		"name": "Team Beta",
+		"members": ["Dave", "Eve", "Frank"],
+		"leaderId": "user_id"
+	}
+]
+```
+
 ---
 
 ## ⚽ Gestion des matchs
