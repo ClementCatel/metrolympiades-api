@@ -162,6 +162,25 @@ Authorization: Bearer jwt_token
 ]
 ```
 
+### 🔹 Récupérer les détails d'une équipe
+
+**GET** `/teams/:teamId`
+
+#### Réponse
+
+```json
+{
+	"id": "team_id",
+	"name": "Team Alpha",
+	"members": ["Alice", "Bob", "Charlie"],
+	"leaderId": "user_id",
+	"leader": {
+		"id": "user_id",
+		"username": "John Doe"
+	}
+}
+```
+
 ---
 
 ## ⚽ Gestion des matchs

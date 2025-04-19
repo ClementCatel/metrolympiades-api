@@ -61,4 +61,29 @@ export async function teams(app: FastifyInstance) {
 
 		reply.send(teams)
 	})
+
+	app.get('/teams/:teamId', async (request, reply) => {
+		const { teamId } = request.params as { teamId: string }
+
+		const team = await prisma.team.findUnique({
+			where: {
+				id: teamId,
+			},
+			include: {
+				leader: {
+					select: {
+						id: true,
+						username: true,
+					},
+				},
+			},
+		})
+
+		if (!team) {
+			reply.code(400).send({ message: 'Team not found' })
+			return
+		}
+
+		reply.send(team)
+	})
 }
