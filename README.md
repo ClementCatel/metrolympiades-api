@@ -71,7 +71,7 @@
 {
 	"id": "user_id",
 	"email": "captain@example.com",
-	"name": "John Doe",
+	"username": "John Doe",
 	"team": {
 		"id": "team_id",
 		"name": "Team Alpha"
@@ -144,12 +144,20 @@ Authorization: Bearer jwt_token
 		"name": "Team Alpha",
 		"members": ["Alice", "Bob", "Charlie"],
 		"leaderId": "user_id"
+		"leader": {
+			"id": "user_id",
+			"username": "John Doe"
+		}
 	},
 	{
 		"id": "team_id",
 		"name": "Team Beta",
 		"members": ["Dave", "Eve", "Frank"],
-		"leaderId": "user_id"
+		"leaderId": "user_id",
+		"leader": {
+			"id": "user_id",
+			"username": "Peter Parker"
+		}
 	}
 ]
 ```

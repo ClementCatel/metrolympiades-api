@@ -48,7 +48,16 @@ export async function teams(app: FastifyInstance) {
 	})
 
 	app.get('/teams', async (_, reply) => {
-		const teams = await prisma.team.findMany()
+		const teams = await prisma.team.findMany({
+			include: {
+				leader: {
+					select: {
+						id: true,
+						username: true,
+					},
+				},
+			},
+		})
 
 		reply.send(teams)
 	})
