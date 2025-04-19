@@ -113,6 +113,50 @@ export async function matches(app: FastifyInstance) {
 		)
 	})
 
+	app.get('/matches', async (request, reply) => {
+		const { teamId } = request.query as { teamId?: string }
+
+		const matchs = await prisma.match.findMany({
+			...(!!teamId && {
+				where: {
+					OR: [
+						{
+							team1Id: teamId,
+						},
+						{
+							team2Id: teamId,
+						},
+					],
+				},
+			}),
+			include: {
+				team1: true,
+				team2: true,
+				activity: true,
+			},
+			orderBy: {
+				startedAt: 'desc',
+			},
+		})
+
+		if (!matchs) {
+			reply.code(400).send({ message: 'No match found' })
+			return
+		}
+
+		reply.send(
+			matchs.map((match) => ({
+				id: match.id,
+				team1: match.team1.name,
+				team2: match.team2.name,
+				activity: match.activity.name,
+				startedAt: match.startedAt,
+				team1Score: match.team1Score,
+				team2Score: match.team2Score,
+			}))
+		)
+	})
+
 	app.delete('/matches/:matchId', async (request, reply) => {
 		const userId = await getUserId(request)
 		const { matchId } = request.params as { matchId: string }

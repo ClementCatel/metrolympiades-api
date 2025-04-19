@@ -196,7 +196,7 @@ Authorization: Bearer jwt_token
 }
 ```
 
-### 🔹 Récupérer les matchs d’une équipe
+### 🔹 Récupérer les matchs de son équipe
 
 **GET** `/matches/me`
 
@@ -205,6 +205,30 @@ Authorization: Bearer jwt_token
 ```
 Authorization: Bearer jwt_token
 ```
+
+#### Réponse
+
+```json
+[
+	{
+		"id": "match_id",
+		"team1": "Team Alpha",
+		"team2": "Team Beta",
+		"activity": "Football",
+		"startedAt": "2025-04-01T10:00:00Z",
+		"team1Score": 10,
+		"team2Score": 8
+	}
+]
+```
+
+### 🔹 Récupérer les matchs
+
+**GET** `/matches`
+
+#### Query Parameters
+
+-   `teamId` (optional): ID de l'équipe pour filtrer les matchs
 
 #### Réponse
 
